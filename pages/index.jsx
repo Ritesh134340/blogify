@@ -8,9 +8,10 @@ import ReactMarkdown from 'react-markdown';
 export default function Home() {
 
   return (
-     <main >
+     <main className="mt-[150px]" >
 
      <p>Hello Blogify</p>
+   
      <AllBlogs/>
      </main>
    

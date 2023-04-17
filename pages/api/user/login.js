@@ -1,4 +1,4 @@
-import User from "@/utils/models/user.model";
+import User from "../../../utils/models/user.model"
 import "../../../utils/config/db";
 const bcrypt = require("bcrypt");
 require("dotenv").config()

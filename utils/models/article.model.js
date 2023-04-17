@@ -1,4 +1,4 @@
-import mongoose from "mongoose";
+const mongoose=require("mongoose")
 
 
 const articleSchema=new mongoose.Schema({
@@ -11,7 +11,7 @@ const articleSchema=new mongoose.Schema({
 },{timestamps:true})
 
 
-const Article=mongoose.model("article",articleSchema)
-mongoose.model={}
+mongoose.models={}
 
-export default Article
+
+export default mongoose.model('article', articleSchema);

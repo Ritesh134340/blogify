@@ -4,15 +4,16 @@ const slugify = require('slugify');
 require("dotenv").config()
 const jwt=require("jsonwebtoken")
 import cookie from "cookie";
-import Article from "@/utils/models/article.model";
-import User from "@/utils/models/user.model";
+import Article from "../../../utils/models/article.model"
+import User from "../../../utils/models/user.model"
+
 
 
 export default async function handler(req, res) {
     try{
         const {image,title,shortDes,longDes,category}=req.body;
         const slug=slugify(title)
-
+      
 
         const  cookies = cookie.parse(req.headers.cookie || '');
         const token=cookies?.token || ""
@@ -40,7 +41,7 @@ export default async function handler(req, res) {
        
     }
     catch(err){
-     console.log("Error from create article route", err)
+     console.error("Error from create article route", err)
      res.status(500).json({mesg:"Internal server error !"})
     }
 }
