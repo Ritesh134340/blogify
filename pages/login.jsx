@@ -2,14 +2,18 @@ import React, { useState } from "react";
 import axios from "axios";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import Loading from "@/components/loading";
+
 
 const login = () => {
   const [email, setEmail] = useState("");
+  const [loading,setLoading]=useState(false)
   const [password, setPassword] = useState("");
 
   const handleLogin = (e) => {
     e.preventDefault();
     if (email && password) {
+      setLoading(true)
       axios.post("http://localhost:3000/api/user/login", {
         email:email,
         password:password,
@@ -25,9 +29,11 @@ const login = () => {
             progress: undefined,
             theme: "colored",
             });
+            setLoading(false)
         }
      
       }).catch((err)=>{
+        setLoading(false)
         toast.error(err.response.data.mesg, {
           position: "top-right",
           autoClose: 2000,
@@ -45,7 +51,9 @@ const login = () => {
 
   return (
     <>
-     <div className="border-[1px] rounded-[10px] shadow-lg p-[15px] m-auto mt-[130px] w-[27%]">
+     
+   { 
+      loading ? <Loading/> : <div className="border-[1px] rounded-[10px] shadow-lg p-[15px] m-auto mt-[130px] w-[27%] mb-[50px]">
       <h3 className="text-center pb-[20px] font-bold text-lg">Log in</h3>
       <form className="m-[auto] w-[95%]">
         <label className="text-sm text-slate-700">Email</label>
@@ -64,11 +72,11 @@ const login = () => {
         <label className="text-sm text-slate-700">password</label>
         <br />
         <input
-          type="text"
+          type="password"
           placeholder="Enter password"
           className="outline-none focus: border-[2px] focus:border-blue-600 h-[40px] rounded-[5px] mt-[8px] mb-[15px] pl-[10px] w-[100%]"
           value={password}
-          required
+          required={true}
           onChange={(e) => setPassword(e.target.value)}
         />
         <br />
@@ -79,11 +87,15 @@ const login = () => {
           Submit
         </button>
       </form>
-    </div>
+      </div>
+    }
     <ToastContainer/>
     </>
    
   );
 };
+
+
+
 
 export default login;

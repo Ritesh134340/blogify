@@ -1,21 +1,20 @@
-import React from 'react'
-import BlogList from './blogList'
+import React from "react";
+import BlogList from "./blogList";
 
-export async function getServerSideProps({ req, res, params, query }) {
+
+const AllBlogs = ({data}) => {
    
-
-    return {
-        props: {},
-    }
-}
-
-
-const AllBlogs = () => {
   return (
-      <div>
-        <BlogList/>
-      </div>
-  )
-}
+    <div>
+     { 
+     data && data.map((ele)=> <BlogList key={ele._id} blog={ele}/>)
+     }
+   
+     
+    </div>
+  );
+};
 
-export default AllBlogs
+
+
+export default AllBlogs;
