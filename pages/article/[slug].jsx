@@ -13,6 +13,7 @@ const ArticleDetails = ({data}) => {
 
     
   return (
+    
     <div className="mt-[130px] w-[80%] m-auto mb=[50px]">
       <h1>{data.title}</h1>
       <Image width={500} height={500} src={data.image} alt="hero-image" className='w-full h-[400px]'></Image>

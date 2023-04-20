@@ -1,25 +1,11 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import axios from "axios";
 import TextEditor from "@/components/textEditor";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import Loading from "@/components/loading";
-import cookie from "cookie"
-
-export async function getServerSideProps({ req, res, params, query }) {
-  const cookies = cookie.parse(req.headers.cookie || "");
-  const token = cookies?.token || "";
-  if(!token){
-    res.setHeader('Location', `/login`);
-    res.statusCode = 302;
-    res.end();
-    
-  }
-  return { props: {} };
- 
-}
-
-
+import { useRouter } from "next/router";
+import { useSession } from "next-auth/react"
 
 const CreateArticle = () => {
   const [image, setImage] = useState("");
@@ -27,16 +13,22 @@ const CreateArticle = () => {
   const [shortDes, setShortDes] = useState("");
   const [longDes, setLongDes] = useState("");
   const [category, setCategory] = useState("");
-  const [loading,setLoading]=useState(false)
+  const [loading, setLoading] = useState(false);
+  const router=useRouter()
+
+  const { status } = useSession({
+    required: true,
+    onUnauthenticated() {
+      router.push("/login")
+    },
+  })
 
 
-  
- 
 
   const handleCreateArticle = (e) => {
     e.preventDefault();
     if (title && image && shortDes && longDes && category) {
-      setLoading(true)
+      setLoading(true);
       axios
         .post("http://localhost:3000/api/article/create", {
           title: title,
@@ -46,7 +38,6 @@ const CreateArticle = () => {
           category: category,
         })
         .then((res) => {
-          setLoading(false)
           toast.success(res.data.mesg, {
             position: "top-right",
             autoClose: 2000,
@@ -57,9 +48,9 @@ const CreateArticle = () => {
             progress: undefined,
             theme: "colored",
           });
+          setLoading(false);
         })
         .catch((err) => {
-          setLoading(false)
           toast.error(err.response.data.mesg, {
             position: "top-right",
             autoClose: 2000,
@@ -70,70 +61,80 @@ const CreateArticle = () => {
             progress: undefined,
             theme: "colored",
           });
+
+          setLoading(false);
         });
     }
   };
 
   return (
-    loading ? <Loading/> : <div className="bg-[#F0F0F0] pt-[130px] pb-[90px] ">
-      <h2 className="text-center mb-[30px] text-xl ">Create New Article</h2>
-      <div className="bg-white m-auto shadow-xl rounded-[10px]  pt-[35px] w-[55%] ">
-        <form className="w-[87%] m-auto">
-          <label className="text-sm text-slate-500">Title</label>
-          <br />
-          <input
-            type="text"
-            placeholder="Enter title"
-            className=" outline-none focus: border-[2px] focus:border-blue-600 h-[45px] rounded-[5px] mt-[8px] mb-[15px] pl-[10px] w-[100%]"
-            value={title}
-            onChange={(e) => setTitle(e.target.value)}
-          />
-          <br />
-          <label className="text-sm text-slate-500">Image</label>
-          <br />
-          <input
-            type="text"
-            placeholder="Image link"
-            className="outline-none focus: border-[2px] focus:border-blue-600 h-[45px] rounded-[5px] mt-[8px] mb-[15px] pl-[10px] w-[100%]"
-            value={image}
-            onChange={(e) => setImage(e.target.value)}
-          />
-          <br />
-          <label className="text-sm text-slate-500">Short Description</label>
-          <br />
-          <input
-            type="text"
-            placeholder="Short description"
-            className="outline-none focus: border-[2px] focus:border-blue-600 h-[45px] rounded-[5px] mt-[8px] mb-[15px] pl-[10px] w-[100%]"
-            value={shortDes}
-            onChange={(e) => setShortDes(e.target.value)}
-          />
-          <br />
-          <label className="text-sm text-slate-500">Content</label>
-          <br />
-          <TextEditor value={longDes} setValue={setLongDes} />
+    <>
+      {status === "loading" || loading ? (
+        <Loading />
+      ) : (
+        <div className="bg-[#F0F0F0] pt-[130px] pb-[90px] ">
+          <h2 className="text-center mb-[30px] text-xl ">Create New Article</h2>
+          <div className="bg-white m-auto shadow-xl rounded-[10px]  pt-[35px] w-[55%] ">
+            <form className="w-[87%] m-auto">
+              <label className="text-sm text-slate-500">Title</label>
+              <br />
+              <input
+                type="text"
+                placeholder="Enter title"
+                className=" outline-none focus: border-[2px] focus:border-blue-600 h-[45px] rounded-[5px] mt-[8px] mb-[15px] pl-[10px] w-[100%]"
+                value={title}
+                onChange={(e) => setTitle(e.target.value)}
+              />
+              <br />
+              <label className="text-sm text-slate-500">Image</label>
+              <br />
+              <input
+                type="text"
+                placeholder="Image link"
+                className="outline-none focus: border-[2px] focus:border-blue-600 h-[45px] rounded-[5px] mt-[8px] mb-[15px] pl-[10px] w-[100%]"
+                value={image}
+                onChange={(e) => setImage(e.target.value)}
+              />
+              <br />
+              <label className="text-sm text-slate-500">
+                Short Description
+              </label>
+              <br />
+              <input
+                type="text"
+                placeholder="Short description"
+                className="outline-none focus: border-[2px] focus:border-blue-600 h-[45px] rounded-[5px] mt-[8px] mb-[15px] pl-[10px] w-[100%]"
+                value={shortDes}
+                onChange={(e) => setShortDes(e.target.value)}
+              />
+              <br />
+              <label className="text-sm text-slate-500">Content</label>
+              <br />
+              <TextEditor value={longDes} setValue={setLongDes} />
 
-          <br />
-          <label className="text-sm text-slate-500">Category</label>
-          <br />
-          <input
-            type="text"
-            placeholder="Category"
-            className="outline-none focus: border-[2px] focus:border-blue-600 h-[45px] rounded-[5px] mt-[8px] mb-[15px] pl-[10px] w-[100%]"
-            value={category}
-            onChange={(e) => setCategory(e.target.value)}
-          />
-          <br />
-          <button
-            className="rounded-[5px] bg-[rgb(137,55,95)] text-white py-[8px] px-[15px] mb-[25px] mt-[45px] "
-            onClick={handleCreateArticle}
-          >
-            Create
-          </button>
-        </form>
-      </div>
+              <br />
+              <label className="text-sm text-slate-500">Category</label>
+              <br />
+              <input
+                type="text"
+                placeholder="Category"
+                className="outline-none focus: border-[2px] focus:border-blue-600 h-[45px] rounded-[5px] mt-[8px] mb-[15px] pl-[10px] w-[100%]"
+                value={category}
+                onChange={(e) => setCategory(e.target.value)}
+              />
+              <br />
+              <button
+                className="rounded-[5px] bg-[rgb(137,55,95)] text-white py-[8px] px-[15px] mb-[25px] mt-[45px] "
+                onClick={handleCreateArticle}
+              >
+                Create
+              </button>
+            </form>
+          </div>
+        </div>
+      )}
       <ToastContainer />
-    </div>
+    </>
   );
 };
 

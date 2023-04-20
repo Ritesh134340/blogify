@@ -5,25 +5,20 @@ const jwt = require("jsonwebtoken");
 import cookie from "cookie";
 import Article from "../../../utils/models/article.model";
 import User from "../../../utils/models/user.model";
+import { authOptions } from "pages/api/auth/[...nextauth]";
+import { getServerSession } from "next-auth/next";
 
 export default async function handler(req, res) {
+  
+  const session = await getServerSession(req, res, authOptions);
+
   try {
     const { image, title, shortDes, longDes, category } = req.body;
+
     const slug = slugify(title);
 
-    const cookies = cookie.parse(req.headers.cookie || "");
-    const token = cookies?.token || "";
-   
-    let check=null;
+    if (session) {
 
-    if(token){
-     var decoded = jwt.verify(token, process.env.SECRET_KEY);
-     check=await User.findOne({ _id: decoded.id });
-    }
-    
-   
-
-    if (check) {
       const payload = {
         image: image,
         title: title,
