@@ -1,10 +1,15 @@
 import React from "react";
 import Link from "next/link";
 import { formatDate } from "@/utils/formatDate";
+import Head from "next/head";
+
 
 const BlogList = ({ blog }) => {
   return (
-    <div>
+    <>
+    <Head/>
+    <main>
+    <div className="border-[3px]">
       <section className="text-gray-600 body-font overflow-hidden">
         <div className="container px-5 py-24 mx-auto">
           <div className="-my-8 divide-y-2 divide-gray-100">
@@ -34,6 +39,9 @@ const BlogList = ({ blog }) => {
         </div>
       </section>
     </div>
+    </main>
+    </>
+   
   );
 };
 

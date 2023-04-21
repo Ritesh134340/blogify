@@ -1,7 +1,12 @@
 const mongoose=require("mongoose")
 
+const keyWordObj=new mongoose.Schema({
+     keyword:String
+})
+
 const publicSchema=new mongoose.Schema({
-     hero:String
+     hero:String,
+     searchKeyword:[keyWordObj]
 })
 
 

@@ -3,9 +3,9 @@
 
 export const formatDate=(dateString)=>{
   const date=new Date(dateString).toLocaleDateString('en-US',{
-    weekday:'long',
+    weekday:'short',
     year:'numeric',
-    month:'long',
+    month:'short',
     day:'numeric'
   })
 

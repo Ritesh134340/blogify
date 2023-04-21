@@ -4,23 +4,46 @@ import axios from "axios";
 import { useState } from "react";
 import { BsSearch } from "react-icons/bs";
 import { useRouter } from "next/router";
+import {HiOutlineSearch} from "react-icons/hi"
 
-export default function Home({ data, heroImage }) {
-  const heroImageLink = heroImage[0].heroImage;
+export default function Home({ data, heroData }) {
   const [searchInput, setSearchInput] = useState("");
+  const [suggestion, setSuggestion] = useState([]);
+
   const router = useRouter();
+
   const handleChange = (e) => {
-    setSearchInput(e.target.value)
-   
-    
+    let searched = e.target.value;
+    setSearchInput(searched);
+    const data = heroData[0].searchKeyword;
+    let newMatch =
+      data &&
+      data.filter((ele) => {
+        return ele.keyword.toLowerCase().includes(searched.toLowerCase());
+      });
+      newMatch=newMatch.splice(0,5)
+    setSuggestion(newMatch);
   };
 
-  const handleSearch = () => {
-    router.push({pathname:"/article/search/result",query:{q:searchInput}});
+  const handleSearch = (e) => {
+    router.push({
+      pathname: "/article/search/result",
+      query: { q: searchInput },
+    });
+  };
+
+  const handleEnterSearch = (e) => {
+    if (e.key === "Enter") {
+      router.push({
+        pathname: "/article/search/result",
+        query: { q: searchInput },
+      });
+    }
   };
 
   return (
     <main className="mt-[80px]">
+    
       <div
         style={{
           height: "450px",
@@ -28,6 +51,7 @@ export default function Home({ data, heroImage }) {
           width: "100%",
           backgroundColor: "black",
           position: "relative",
+        
         }}
       >
         <div
@@ -38,7 +62,7 @@ export default function Home({ data, heroImage }) {
             left: "0",
             width: "100%",
             height: "100%",
-            backgroundImage: `url(${heroImageLink})`,
+            backgroundImage: `url('./assets/hero_image.jpg')`,
             backgroundRepeat: "no-repeat",
             backgroundSize: "cover",
             backgroundPosition: "left center",
@@ -46,16 +70,17 @@ export default function Home({ data, heroImage }) {
           }}
         ></div>
         <div className="absolute top-[20%] w-[100%] text-white text-center">
-          <h1 className="text-3xl font-semibold">
+          <h1 className="text-2xl font-semibold sm:text-3xl">
             Looking something specific ?
           </h1>
-          <div className="m-auto  w-[33%] mt-[30px] ">
-            <div className="flex items-center  bg-white h-[43px] rounded-md border-[2px] box-content">
+          <div className="m-auto mt-[30px]  w-[95%] md:w-[50%] lg:w-[35%] ">
+            <div className="flex items-center w-full  bg-white h-[43px] rounded-md border-[2px] box-content">
               <input
                 placeholder="Enter your query..."
                 type="text"
-                className="pl-[10px] h-[100%] outline-none border-none flex-[1] text-black"
+                className="pl-[10px] h-[100%] outline-none border-none flex-[1] text-black box-border"
                 value={searchInput}
+                onKeyUp={handleEnterSearch}
                 onChange={handleChange}
               />
               <BsSearch
@@ -64,8 +89,20 @@ export default function Home({ data, heroImage }) {
               />
             </div>
 
-            {searchInput && (
-              <div className="bg-white w-[100%] h-[350px] border-t-[1px] shadow-lg box-border "></div>
+            {(searchInput && suggestion.length>0) && (
+              <div className="bg-white w-[100%] pb-[15px] border-t-[1px] shadow-lg box-border ">
+                {suggestion &&
+                  suggestion.map((ele) => {
+                    return (
+                      <div  key={ele._id} className="pl-[15px] flex items-center gap-[13px]  text-left">
+                        <HiOutlineSearch className="text-slate-400 text-2xl"/>
+                        <p className="text-black  py-[9px] my-[5px] text-sm">
+                          {ele.keyword}
+                        </p>
+                      </div>
+                    );
+                  })}
+              </div>
             )}
           </div>
         </div>
@@ -77,12 +114,11 @@ export default function Home({ data, heroImage }) {
 }
 
 export async function getServerSideProps({ req, res, params, query }) {
- 
   const response = await axios.get("http://localhost:3000/api/article/get");
 
   const data = response.data.articles;
-  const heroImage = response.data.heroImage;
+  const heroData = response.data.heroData;
   return {
-    props: { data, heroImage },
+    props: { data, heroData },
   };
 }
