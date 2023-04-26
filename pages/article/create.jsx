@@ -72,9 +72,9 @@ const CreateArticle = () => {
       {status === "loading" || loading ? (
         <Loading />
       ) : (
-        <div className="bg-[#F0F0F0] pt-[130px] pb-[90px] ">
+        <div className="bg-[#F0F0F0] pt-[100px] sm:pt-[130px] pb-[90px] ">
           <h2 className="text-center mb-[30px] text-xl ">Create New Article</h2>
-          <div className="bg-white m-auto shadow-xl rounded-[10px]  pt-[35px] w-[55%] ">
+          <div className="bg-white m-auto shadow-xl rounded-[10px]  pt-[35px] w-[95%] md:w-[80%] lg:w-[55%] ">
             <form className="w-[87%] m-auto">
               <label className="text-sm text-slate-500">Title</label>
               <br />

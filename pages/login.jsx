@@ -56,7 +56,7 @@ const login = () => {
       {loading ? (
         <Loading />
       ) : (
-        <div className="border-[1px] rounded-[10px] shadow-lg p-[15px] m-auto mt-[130px] w-[27%] mb-[50px]">
+        <div className="border-[1px] rounded-[10px] shadow-lg p-[15px] m-auto mt-[150px] md:mt-[200px] lg:mt-[130px] w-[95%]  mb-[50px] md:w-[45%] lg:w-[27%]">
           <h3 className="text-center pb-[20px] font-bold text-lg">Log in</h3>
           <form className="m-[auto] w-[95%]">
             <label className="text-sm text-slate-700">Email</label>
