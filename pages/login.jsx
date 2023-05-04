@@ -8,7 +8,7 @@ import { signIn } from "next-auth/react";
 import { useSession } from "next-auth/react"
 import {FcGoogle} from "react-icons/fc"
 
-const login = () => {
+const Login = () => {
   const [email, setEmail] = useState("");
   const [loading, setLoading] = useState(false);
   const [password, setPassword] = useState("");
@@ -18,7 +18,7 @@ const login = () => {
   const handleGoogleLogin=()=>{
     signIn("google",{redirect:false,callbackUrl:"/"})
   }
-  
+
   const handleLogin = async (e) => {
     e.preventDefault();
 
@@ -114,4 +114,4 @@ const login = () => {
   );
 };
 
-export default login;
+export default Login;
