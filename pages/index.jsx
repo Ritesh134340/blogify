@@ -4,7 +4,7 @@ import axios from "axios";
 import { useState } from "react";
 import { BsSearch } from "react-icons/bs";
 import { useRouter } from "next/router";
-import {HiOutlineSearch} from "react-icons/hi"
+import { HiOutlineSearch } from "react-icons/hi";
 
 export default function Home({ data, heroData }) {
   const [searchInput, setSearchInput] = useState("");
@@ -21,14 +21,15 @@ export default function Home({ data, heroData }) {
       data.filter((ele) => {
         return ele.keyword.toLowerCase().includes(searched.toLowerCase());
       });
-      newMatch=newMatch.splice(0,5)
+    newMatch = newMatch.splice(0, 5);
     setSuggestion(newMatch);
   };
 
-  const handleSearch = (e) => {
+  const handleSearch = (text) => {
+    console.log(text)
     router.push({
       pathname: "/article/search/result",
-      query: { q: searchInput },
+      query: { q: text },
     });
   };
 
@@ -43,7 +44,6 @@ export default function Home({ data, heroData }) {
 
   return (
     <main className="mt-[80px]">
-    
       <div
         style={{
           height: "450px",
@@ -51,7 +51,6 @@ export default function Home({ data, heroData }) {
           width: "100%",
           backgroundColor: "black",
           position: "relative",
-        
         }}
       >
         <div
@@ -74,7 +73,7 @@ export default function Home({ data, heroData }) {
             Looking something specific ?
           </h1>
           <div className="m-auto mt-[30px]  w-[95%] md:w-[50%] lg:w-[35%] ">
-            <div className="flex items-center w-full  bg-white h-[43px] rounded-md border-[2px] box-content">
+            <div className="flex items-center w-full relative  bg-white h-[43px] rounded-md border-[2px] box-content ">
               <input
                 placeholder="Enter your query..."
                 type="text"
@@ -85,25 +84,33 @@ export default function Home({ data, heroData }) {
               />
               <BsSearch
                 className="bg-[#D8D8D8] h-[100%] text-4xl text-slate-800 border-l-[2px] cursor-pointer  pl-[8px] pr-[8px]"
-                onClick={handleSearch}
+                onClick={() => handleSearch(searchInput)}
               />
-            </div>
 
-            {(searchInput && suggestion.length>0) && (
-              <div className="bg-white w-[100%] pb-[15px] border-t-[1px] shadow-lg box-border ">
-                {suggestion &&
-                  suggestion.map((ele) => {
-                    return (
-                      <div  key={ele._id} className="pl-[15px] flex items-center gap-[13px]  text-left">
-                        <HiOutlineSearch className="text-slate-400 text-2xl"/>
-                        <p className="text-black  py-[9px] my-[5px] text-sm">
-                          {ele.keyword}
-                        </p>
-                      </div>
-                    );
-                  })}
-              </div>
-            )}
+              {searchInput && suggestion.length > 0 && (
+                <div className="bg-white w-[100%] pb-[15px] shadow-lg box-border absolute top-[105%] left-0 ">
+                  {suggestion &&
+                    suggestion.map((ele) => {
+                      return (
+                        <div
+                          key={ele._id}
+                          className="pl-[15px] flex items-center gap-[13px]  text-left"
+                        >
+                          <HiOutlineSearch className="text-slate-400 text-2xl" />
+                          <p
+                            className="text-black  py-[9px] my-[5px] text-sm cursor-pointer"
+                            onClick={() => {
+                                handleSearch(ele.keyword);
+                            }}
+                          >
+                            {ele.keyword}
+                          </p>
+                        </div>
+                      );
+                    })}
+                </div>
+              )}
+            </div>
           </div>
         </div>
       </div>

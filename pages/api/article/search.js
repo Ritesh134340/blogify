@@ -8,7 +8,9 @@ export default async function handler(req, res) {
   try {
       await Public.updateOne({$push:{searchKeyword:{keyword:req.query.q}}})
       const searchRegex = new RegExp(req.query.q, "i");
-      const document=await Article.find({$or:[{title:{$regex:searchRegex}}, { description: { $regex: searchRegex }}]});
+
+      console.log(searchRegex)
+      const document=await Article.find({title:{$regex:searchRegex}});
       res.status(200).json({ mesg: "Ok",articles:document});
       
     }

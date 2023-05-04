@@ -3,10 +3,23 @@ import CredentialsProvider from "next-auth/providers/credentials";
 import User from "../../../utils/models/user.model";
 import "../../../utils/config/db";
 const bcrypt = require("bcrypt");
+import GoogleProvider from "next-auth/providers/google";
 
 
 
 export const authOptions = {
+
+  callbacks: {
+    async signIn({ account, profile }) {
+      if (account.provider === "google" && profile.email === "riteshkumar134340@gmail.com") {
+       
+        return true; 
+      } else {
+        return false; 
+      }
+     
+    },
+  },
   providers: [
     CredentialsProvider({
       name: "Credentials",
@@ -35,7 +48,15 @@ export const authOptions = {
         }
       },
     }),
+
+
+    GoogleProvider({
+      clientId: process.env.GOOGLE_CLIENT_ID,
+      clientSecret: process.env.GOOGLE_CLIENT_SECRET
+    })
+
   ],
+  
   secret: "qRoV2W+S/8OjgnnZeGNNf0pzj2d/2LAmWVJZKzBoc2o=",
 };
 

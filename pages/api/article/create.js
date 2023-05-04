@@ -17,8 +17,9 @@ export default async function handler(req, res) {
 
     const slug = slugify(title);
 
-    if (session) {
+  
 
+    if (session) {
       const payload = {
         image: image,
         title: title,

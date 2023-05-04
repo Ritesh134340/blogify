@@ -6,7 +6,7 @@ import Loading from "@/components/loading";
 import { useRouter } from "next/router";
 import { signIn } from "next-auth/react";
 import { useSession } from "next-auth/react"
-
+import {FcGoogle} from "react-icons/fc"
 
 const login = () => {
   const [email, setEmail] = useState("");
@@ -14,6 +14,11 @@ const login = () => {
   const [password, setPassword] = useState("");
   const router = useRouter();
 
+
+  const handleGoogleLogin=()=>{
+    signIn("google",{redirect:false,callbackUrl:"/"})
+  }
+  
   const handleLogin = async (e) => {
     e.preventDefault();
 
@@ -84,14 +89,24 @@ const login = () => {
             />
             <br />
             <button
-              className="rounded-[5px] bg-[rgb(137,55,95)] text-white py-[8px] px-[15px] mb-[25px] mt-[40px] "
+              className="rounded-[5px] bg-[rgb(137,55,95)] text-white py-[8px] px-[15px] mt-[30px] w-[100%] mb-[20px] "
               onClick={handleLogin}
             >
               Submit
             </button>
+            <div className="border-b-[1px] border-b-gray-300 relative h-[20px]">
+           <div className="absolute flex items-center justify-center top-[0%] left-[45%] bg-white p-2 rounded-[50%] w-[35px] h-[35px]">or</div>
+           </div>
+          
+         
 
+          <div className='flex box-border border-[1px] py-[5px] border-black rounded-[5px] cursor-pointer items-center justify-center gap-[9px] mt-[35px] mb-[30px]' onClick={handleGoogleLogin}>
+            <FcGoogle className="text-[25px]"/><p className="text-[14px] font-semibold">Continue with Google</p>
+          </div>
           </form>
-          <div>or</div>
+          
+          
+         
         </div>
       )}
       <ToastContainer />

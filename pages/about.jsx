@@ -8,10 +8,10 @@ const About = () => {
         <title>About | Blogify.today</title>
       </Head>
       
-      <div className="max-w-screen-lg  mx-auto mt-[130px] mb-[50px] px-4 md:px-6 lg:px-8">
+      <div className="w-95%  mx-auto mt-[130px] mb-[50px] px-4 md:w-[85%] md:mb-[50px]  md:px-6 lg:px-8">
         <h1 className="text-xl md:text-2xl mb-[30px] lg:text-3xl font-bold mt-8 ">About Blogify.today</h1>
         <div className="flex flex-col md:flex-row justify-between items-start">
-          <div className="flex-1 md:mr-8">
+          <div className="flex-1  md:mr-8">
             <p className="text-lg md:text-xl leading-relaxed mb-4">
               Blogify.today is a website where you can read different blogs related to Next.js, React.js, HTML, CSS, and other web development topics.
             </p>
