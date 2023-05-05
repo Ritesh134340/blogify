@@ -121,6 +121,7 @@ export default function Home({ data, heroData }) {
 }
 
 export async function getServerSideProps({ req, res, params, query }) {
+
   const response = await axios.get(`${process.env.NEXT_PUBLIC_CLIENT_ADDRESS}/api/article/get`);
 
   const data = response.data.articles;
