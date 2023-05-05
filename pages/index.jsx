@@ -26,8 +26,8 @@ export default function Home({ data, heroData }) {
   };
 
   const handleSearch = (text) => {
-    console.log(text)
-    router.push({
+  
+    text && router.push({
       pathname: "/article/search/result",
       query: { q: text },
     });
@@ -35,7 +35,7 @@ export default function Home({ data, heroData }) {
 
   const handleEnterSearch = (e) => {
     if (e.key === "Enter") {
-      router.push({
+      searchInput  && router.push({
         pathname: "/article/search/result",
         query: { q: searchInput },
       });
