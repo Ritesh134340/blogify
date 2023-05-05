@@ -6,10 +6,10 @@ import { BsSearch } from "react-icons/bs";
 import { useRouter } from "next/router";
 import { HiOutlineSearch } from "react-icons/hi";
 
+
 export default function Home({ data, heroData }) {
   const [searchInput, setSearchInput] = useState("");
   const [suggestion, setSuggestion] = useState([]);
-
   const router = useRouter();
 
   const handleChange = (e) => {
@@ -121,7 +121,7 @@ export default function Home({ data, heroData }) {
 }
 
 export async function getServerSideProps({ req, res, params, query }) {
-  const response = await axios.get("http://localhost:3000/api/article/get");
+  const response = await axios.get(`${process.env.CLIENT_ADDRESS}/api/article/get`);
 
   const data = response.data.articles;
   const heroData = response.data.heroData;
