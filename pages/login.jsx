@@ -17,24 +17,7 @@ const Login = () => {
 
   const handleGoogleLogin=async ()=>{
     setLoading(true)
-    await signIn("google",{redirect:false,callbackUrl:"/"}).then((res)=>
-      setLoading(false)
-    )
-    .catch((err)=>
-    setLoading(false)
-      )
-  }
-
-  const handleLogin = async (e) => {
-    e.preventDefault();
-     setLoading(true)
-    const status = await signIn("credentials", {
-      redirect: false,
-      email: email,
-      password: password,
-      callbackUrl: "/",
-    });
-  
+    const status=await signIn("google",{redirect:false,callbackUrl:"/"})
     if (status.ok) {
       toast.success("Login successful !", {
         position: "top-right",
@@ -47,7 +30,53 @@ const Login = () => {
         theme: "colored",
       });
       setLoading(false)
-      router.push(status.url);
+      setTimeout(()=>{
+        router.push(status.url);
+      },800)
+     
+    }
+    if(status.error){
+      toast.error(status.error, {
+        position: "top-right",
+        autoClose: 2000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: false,
+        draggable: true,
+        progress: undefined,
+        theme: "colored",
+      });
+      setLoading(false)
+    }
+  }
+
+  const handleLogin = async (e) => {
+    e.preventDefault();
+     setLoading(true)
+    const status = await signIn("credentials", {
+      redirect: false,
+      email: email,
+      password: password,
+      callbackUrl: "/",
+    });
+   
+
+    if (status.ok) {
+      toast.success("Login successful !", {
+        position: "top-right",
+        autoClose: 2000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: false,
+        draggable: true,
+        progress: undefined,
+        theme: "colored",
+      });
+      setLoading(false)
+      setTimeout(()=>{
+        router.push(status.url);
+      },800)
+     
     }
     if(status.error){
       toast.error(status.error, {
