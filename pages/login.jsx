@@ -15,13 +15,19 @@ const Login = () => {
   const router = useRouter();
 
 
-  const handleGoogleLogin=()=>{
-    signIn("google",{redirect:false,callbackUrl:"/"})
+  const handleGoogleLogin=async ()=>{
+    setLoading(true)
+    await signIn("google",{redirect:false,callbackUrl:"/"}).then((res)=>
+      setLoading(false)
+    )
+    .catch((err)=>
+    setLoading(false)
+      )
   }
 
   const handleLogin = async (e) => {
     e.preventDefault();
-
+     setLoading(true)
     const status = await signIn("credentials", {
       redirect: false,
       email: email,
@@ -40,6 +46,7 @@ const Login = () => {
         progress: undefined,
         theme: "colored",
       });
+      setLoading(false)
       router.push(status.url);
     }
     if(status.error){
@@ -53,6 +60,7 @@ const Login = () => {
         progress: undefined,
         theme: "colored",
       });
+      setLoading(false)
     }
   };
 

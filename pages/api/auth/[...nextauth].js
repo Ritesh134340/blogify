@@ -14,8 +14,9 @@ export const authOptions = {
       if (account.provider === "google" && profile.email === "riteshkumar134340@gmail.com") {
        
         return true; 
-      } else {
-        return false; 
+      }
+       else {
+        return true; 
       }
      
     },
