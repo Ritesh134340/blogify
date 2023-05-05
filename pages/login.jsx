@@ -19,7 +19,7 @@ const Login = () => {
     setLoading(true)
      signIn("google",{redirect:false,callbackUrl:"/"})
      .then((res)=>{
-      console.log(res)
+     
       setLoading(false)
      })
      .catch((err)=>{
