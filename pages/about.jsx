@@ -7,10 +7,8 @@ const About = () => {
       <Head>
         <title>About | Blogify.today</title>
       </Head>
-      <div>
-       About page
-      </div>
-      {/* <div className="w-95%  mx-auto mt-[130px] mb-[50px] px-4 md:w-[85%] md:mb-[50px]  md:px-6 lg:px-8">
+     
+      <div className="w-95%  mx-auto mt-[130px] mb-[50px] px-4 md:w-[85%] md:mb-[50px]  md:px-6 lg:px-8">
         <h1 className="text-xl md:text-2xl mb-[30px] lg:text-3xl font-bold mt-8 ">
           About Blogify.today
         </h1>
@@ -52,7 +50,7 @@ const About = () => {
             hesitate to us. We&apos;sd love to hear from you!
           </p>
         </div>
-      </div> */}
+      </div>
     </>
   );
 };
