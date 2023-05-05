@@ -11,7 +11,7 @@ const BlogList = ({ blog }) => {
     <Head/>
     <main>
    
-          <div className="my-[80px] px-[15px] sm:px-[30px] lg:px-[50px]">
+          <div className="my-[10px] border-b-[1px] px-[15px] sm:px-[30px] lg:px-[50px]">
             <div className="py-8 gap-[55px] w-100% flex flexWrap md:flex-nowrap md:gap-[0px] lg:gap-[0px]">
               <div className="md:w-64 md:mb-0 mb-6 flex-shrink-0 flex flex-col">
                 <span className="font-semibold title-font text-gray-700">
