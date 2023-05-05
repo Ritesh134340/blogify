@@ -1,5 +1,4 @@
 import AllBlogs from "@/components/allBlogs";
-import Image from "next/image";
 import axios from "axios";
 import { useState } from "react";
 import { BsSearch } from "react-icons/bs";
