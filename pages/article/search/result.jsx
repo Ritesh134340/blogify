@@ -4,7 +4,7 @@ import Image from "next/image";
 import BlogList from "@/components/blogList";
 
 const SearchResult = ({ data }) => {
-  // console.log(data);
+ 
   return (
     <div className="mt-[100px]">
       <div>
@@ -37,7 +37,7 @@ export async function getServerSideProps({ req, res, params, query }) {
     searchQuery = query.q;
   }
   const response = await axios.get(
-    `http://localhost:3000/api/article/search?q=${searchQuery}`
+    `${process.env.NEXT_PUBLIC_CLIENT_ADDRESS}/api/article/search?q=${searchQuery}`
   );
 
   const data = response.data.articles;

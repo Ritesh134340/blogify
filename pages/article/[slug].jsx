@@ -64,7 +64,7 @@ const handleColorChange=(bgColor)=>{
 
 export async function getServerSideProps(context) {
   const { slug } = context.query;
-  const res = await axios.get(`http://localhost:3000/api/article/${slug}`);
+  const res = await axios.get(`${process.env.NEXT_PUBLIC_CLIENT_ADDRESS}/api/article/${slug}`);
   const data = res.data.document;
   return {
     props: { data },

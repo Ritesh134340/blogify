@@ -30,7 +30,7 @@ const CreateArticle = () => {
     if (title && image && shortDes && longDes && category) {
       setLoading(true);
       axios
-        .post("http://localhost:3000/api/article/create", {
+        .post(`${process.env.NEXT_PUBLIC_CLIENT_ADDRESS}/api/article/create`, {
           title: title,
           image: image,
           shortDes: shortDes,
