@@ -3,13 +3,32 @@ import Link from "next/link";
 import { FaBars } from "react-icons/fa";
 import { RxCross2 } from "react-icons/rx";
 import { useSession, signOut } from "next-auth/react";
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 const Navbar = () => {
   const { data: session } = useSession();
   const [showSidebar, setShowSidebar] = useState(false);
 
+  const handleSignOut=async()=>{
+     await signOut().then(()=>{
+      toast.success("Logout successful !", {
+        position: "top-right",
+        autoClose: 2000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: false,
+        draggable: true,
+        progress: undefined,
+        theme: "colored",
+      });
+     })
+     setShowSidebar(!showSidebar)
+    }
+  
   return (
-    <div className="shadow-md  h-[80px] flex items-center  fixed top-0 left-0 w-[100%] bg-white z-10">
+    <>
+      <div className="shadow-md  h-[80px] flex items-center  fixed top-0 left-0 w-[100%] bg-white z-10">
       <div className=" flex items-center  w-full justify-between">
         <div className="ml-[15px] sm:ml-[50px] ">
           <Link href="/">
@@ -49,7 +68,7 @@ const Navbar = () => {
             <div className="text-center mt-[50px] sm:mt-auto sm:mr-[70px]">
               <button
                 className="p-[13px] text-sm  bg-[#89375F] font-bold rounded-[6px] text-white pb-[6px] pt-[6px] "
-                onClick={() =>{ signOut(); setShowSidebar(!showSidebar)}}
+                onClick={handleSignOut}
               >
                 Log out
               </button>
@@ -70,7 +89,11 @@ const Navbar = () => {
           )}
         </div>
       </div>
+      
     </div>
+    <ToastContainer/>
+    </>
+  
   );
 };
 
