@@ -15,39 +15,16 @@ const Login = () => {
   const router = useRouter();
 
 
-  const handleGoogleLogin=async ()=>{
+  const handleGoogleLogin= ()=>{
     setLoading(true)
-    const status=await signIn("google",{redirect:false,callbackUrl:"/"})
-    if (status.ok) {
-      toast.success("Login successful !", {
-        position: "top-right",
-        autoClose: 2000,
-        hideProgressBar: false,
-        closeOnClick: true,
-        pauseOnHover: false,
-        draggable: true,
-        progress: undefined,
-        theme: "colored",
-      });
+     signIn("google",{redirect:false,callbackUrl:"/"})
+     .then((res)=>{
+      console.log(res)
       setLoading(false)
-      setTimeout(()=>{
-        router.push(status.url);
-      },800)
-     
-    }
-    if(status.error){
-      toast.error(status.error, {
-        position: "top-right",
-        autoClose: 2000,
-        hideProgressBar: false,
-        closeOnClick: true,
-        pauseOnHover: false,
-        draggable: true,
-        progress: undefined,
-        theme: "colored",
-      });
+     })
+     .catch((err)=>{
       setLoading(false)
-    }
+     })
   }
 
   const handleLogin = async (e) => {
