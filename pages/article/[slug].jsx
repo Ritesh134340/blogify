@@ -55,7 +55,7 @@ const handleColorChange=(bgColor)=>{
       ></Image>
       <div
         dangerouslySetInnerHTML={{ __html: data.longDes }}
-        className={`px-[12px] py-[20px]  md:px-[30px]  rounded-md `}
+        className={`px-[12px] py-[20px]  md:px-[30px]  rounded-b-md `}
         style={{backgroundColor:length>0 ? col.bgColor : "#F0F0F0",color:(length>0) ? col.text : "black"}}
       ></div>
     </div>
