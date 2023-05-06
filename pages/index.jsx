@@ -4,9 +4,11 @@ import { useState } from "react";
 import { BsSearch } from "react-icons/bs";
 import { useRouter } from "next/router";
 import { HiOutlineSearch } from "react-icons/hi";
+import Loading from "@/components/loading";
 
 
 export default function Home({ data, heroData }) {
+  
   const [searchInput, setSearchInput] = useState("");
   const [suggestion, setSuggestion] = useState([]);
   const router = useRouter();
@@ -40,6 +42,8 @@ export default function Home({ data, heroData }) {
       });
     }
   };
+
+ 
 
   return (
     <main className="mt-[80px]">
