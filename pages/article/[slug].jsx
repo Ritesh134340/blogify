@@ -40,7 +40,7 @@ const ArticleDetails = ({ data }) => {
 
           <select
             name="color"
-            className="border-[1px] outline-none p-1 rounded-sm"
+            className="border-[1px] outline-none py-[5px] px-[8px] lg:py-[8px] lg:px-[15px] rounded-sm"
             onChange={(e) => handleColorChange(e.target.value)}
           >
             <option value="">Select</option>
@@ -56,14 +56,14 @@ const ArticleDetails = ({ data }) => {
           height={500}
           src={data.image}
           alt="hero-image"
-          className="w-full rounded-[10px] md:h-[400px] lg:h-[450px]"
+          className="w-full lg:rounded-[10px] md:h-[400px] lg:h-[450px]"
         ></Image>
         <div
           dangerouslySetInnerHTML={{ __html: data.longDes }}
-          className={`px-[12px] py-[20px] mt-[5px]  md:px-[30px]  rounded-b-md `}
+          className={`px-[12px] py-[25px] lg:mt-[5px]  md:px-[30px]  rounded-b-md `}
           style={{
             backgroundColor: length > 0 ? col.bgColor : "#F0F0F0",
-            color: length > 0 ? col.text : "black",
+            color: length > 0 ? col.text : "black",pb:"30px"
           }}
         ></div>
       </div>

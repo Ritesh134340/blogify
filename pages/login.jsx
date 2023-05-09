@@ -84,7 +84,7 @@ const Login = () => {
             <input
               type="email"
               placeholder="Enter Email"
-              className="outline-none focus: border-[2px] focus:border-blue-600 h-[40px] rounded-[5px] mt-[8px] mb-[15px] pl-[10px] w-[100%]"
+              className="outline-none focus: border-[2px] focus:border-blue-600 h-[45px] lg:h-[40px] rounded-[5px] mt-[8px] mb-[15px] pl-[10px] w-[100%]"
               value={email}
               required={true}
               onChange={(e) => setEmail(e.target.value)}
@@ -96,7 +96,7 @@ const Login = () => {
             <input
               type="password"
               placeholder="Enter password"
-              className="outline-none focus: border-[2px] focus:border-blue-600 h-[40px] rounded-[5px] mt-[8px] mb-[15px] pl-[10px] w-[100%]"
+              className="outline-none focus: border-[2px] focus:border-blue-600 h-[45px] lg:h-[40px] rounded-[5px] mt-[8px] mb-[15px] pl-[10px] w-[100%]"
               value={password}
               required={true}
               onChange={(e) => setPassword(e.target.value)}
@@ -114,7 +114,7 @@ const Login = () => {
           
          
 
-          <div className='flex box-border border-[1px] py-[5px] border-black rounded-[5px] cursor-pointer items-center justify-center gap-[9px] mt-[35px] mb-[30px]' onClick={handleGoogleLogin}>
+          <div className='flex box-border border-[1px] py-[12px] border-black rounded-[5px] cursor-pointer items-center justify-center gap-[9px] mt-[35px] mb-[30px]' onClick={handleGoogleLogin}>
             <FcGoogle className="text-[25px]"/><p className="text-[14px] font-semibold">Continue with Google</p>
           </div>
           </form>
