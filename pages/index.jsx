@@ -13,9 +13,9 @@ export default function Home({ data, heroData }) {
   const [searchInput, setSearchInput] = useState("");
   const [suggestion, setSuggestion] = useState([]);
   const router = useRouter();
-  const perPage =5;
+  const perPage = 5;
   const [currentPage, setCurrentPage] = useState(1);
-  const [loading,setLoading]=useState(false)
+  const [loading, setLoading] = useState(false);
 
   let firstIndex = perPage * (currentPage - 1);
   let lastIndex = firstIndex + perPage;
@@ -24,14 +24,31 @@ export default function Home({ data, heroData }) {
 
   let totalPages = Math.ceil(data.length / perPage);
 
-
   const handleDeleteBlog = (blogId) => {
-    setLoading(true)
-    axios.delete(`${process.env.NEXT_PUBLIC_CLIENT_ADDRESS}/api/article/delete/${blogId}`)
-    .then((res)=>{
-      if(res.status===200){
-        setLoading(false)
-        toast.success(res.data.mesg, {
+    setLoading(true);
+    axios
+      .delete(
+        `${process.env.NEXT_PUBLIC_CLIENT_ADDRESS}/api/article/delete/${blogId}`
+      )
+      .then((res) => {
+        if (res.status === 200) {
+          setLoading(false);
+          toast.success(res.data.mesg, {
+            position: "top-right",
+            autoClose: 2000,
+            hideProgressBar: false,
+            closeOnClick: true,
+            pauseOnHover: false,
+            draggable: true,
+            progress: undefined,
+            theme: "colored",
+          });
+          router.reload();
+        }
+      })
+      .catch((err) => {
+        setLoading(false);
+        toast.error(err.response.data.mesg, {
           position: "top-right",
           autoClose: 2000,
           hideProgressBar: false,
@@ -41,28 +58,10 @@ export default function Home({ data, heroData }) {
           progress: undefined,
           theme: "colored",
         });
-        router.reload();
-      }
-    })
-    .catch((err)=>{
-      setLoading(false)
-      toast.error(err.response.data.mesg, {
-        position: "top-right",
-        autoClose: 2000,
-        hideProgressBar: false,
-        closeOnClick: true,
-        pauseOnHover: false,
-        draggable: true,
-        progress: undefined,
-        theme: "colored",
       });
-     
-    })
   };
 
-
   const handlePageChange = (current) => {
-  
     setCurrentPage(current);
   };
 
@@ -97,8 +96,10 @@ export default function Home({ data, heroData }) {
     }
   };
 
-  return (
-   loading ? <Loading/> : <main className="mt-[80px]">
+  return loading ? (
+    <Loading />
+  ) : (
+    <main className="mt-[80px]">
       <div
         style={{
           height: "450px",
@@ -171,7 +172,11 @@ export default function Home({ data, heroData }) {
       </div>
 
       <AllBlogs data={newData} handleDeleteBlog={handleDeleteBlog} />
-      <Pagination  currentPage={currentPage} totalPages={totalPages} handlePageChange={handlePageChange} />
+      <Pagination
+        currentPage={currentPage}
+        totalPages={totalPages}
+        handlePageChange={handlePageChange}
+      />
       <ToastContainer />
     </main>
   );

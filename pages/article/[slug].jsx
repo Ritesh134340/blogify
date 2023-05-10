@@ -40,7 +40,7 @@ const ArticleDetails = ({ data }) => {
 
           <select
             name="color"
-            className="border-[1px] outline-none py-[5px] px-[8px] lg:py-[8px] lg:px-[15px] rounded-sm"
+            className="border-[1px] outline-none py-[8px] px-[8px] lg:py-[8px] lg:px-[15px] rounded-sm"
             onChange={(e) => handleColorChange(e.target.value)}
           >
             <option value="">Select</option>

@@ -103,7 +103,7 @@ const Login = () => {
             />
             <br />
             <button
-              className="rounded-[5px] bg-[rgb(137,55,95)] text-white py-[8px] px-[15px] mt-[30px] w-[100%] mb-[20px] "
+              className="rounded-[5px] bg-[rgb(137,55,95)] text-white py-[10px] px-[15px] mt-[30px] w-[100%] mb-[20px] "
               onClick={handleLogin}
             >
               Submit

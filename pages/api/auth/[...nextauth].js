@@ -29,10 +29,10 @@ export const authOptions = {
         const { email, password } = credentials;
 
         const check = await User.findOne({ email: email });
-
+       
         if (check) {
           const result = await bcrypt.compare(password, check.password);
-
+         
           if (result) {
             const payload = {
               email: check.email,
