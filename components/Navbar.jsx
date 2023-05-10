@@ -39,7 +39,7 @@ const Navbar = () => {
             </h1>
           </Link>
         </div>
-
+       
         <div
           className={`flex-col  bg-[#B71375] ${showSidebar ? 'left-0' : 'left-[-300px]'}  items-center justify-between absolute top-[80px] w-[300px] h-[100vh] ease duration-500 sm:flex sm:flex-row sm:bg-white sm:flex-[1] sm:top-0 sm:w-auto  sm:ml-[70px] sm:h-auto sm:static`}
         >
@@ -75,7 +75,11 @@ const Navbar = () => {
               </button>
             </div>
           )}
+
+         
         </div>
+        
+       
         <div className="flex items-center justify-center mr-[15px] sm:hidden">
           {!showSidebar ? (
             <FaBars
