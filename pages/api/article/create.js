@@ -1,10 +1,7 @@
 import "../../../utils/config/db";
 const slugify = require("slugify");
 require("dotenv").config();
-const jwt = require("jsonwebtoken");
-import cookie from "cookie";
 import Article from "../../../utils/models/article.model";
-import User from "../../../utils/models/user.model";
 import { authOptions } from "pages/api/auth/[...nextauth]";
 import { getServerSession } from "next-auth/next";
 

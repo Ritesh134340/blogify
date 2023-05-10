@@ -5,13 +5,66 @@ import { BsSearch } from "react-icons/bs";
 import { useRouter } from "next/router";
 import { HiOutlineSearch } from "react-icons/hi";
 import Loading from "@/components/loading";
-
+import Pagination from "@/components/pagination";
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 export default function Home({ data, heroData }) {
-  
   const [searchInput, setSearchInput] = useState("");
   const [suggestion, setSuggestion] = useState([]);
   const router = useRouter();
+  const perPage =5;
+  const [currentPage, setCurrentPage] = useState(1);
+  const [loading,setLoading]=useState(false)
+
+  let firstIndex = perPage * (currentPage - 1);
+  let lastIndex = firstIndex + perPage;
+
+  let newData = data.slice(firstIndex, lastIndex);
+
+  let totalPages = Math.ceil(data.length / perPage);
+
+
+  const handleDeleteBlog = (blogId) => {
+    setLoading(true)
+    axios.delete(`${process.env.NEXT_PUBLIC_CLIENT_ADDRESS}/api/article/delete/${blogId}`)
+    .then((res)=>{
+      if(res.status===200){
+        setLoading(false)
+        toast.success(res.data.mesg, {
+          position: "top-right",
+          autoClose: 2000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: false,
+          draggable: true,
+          progress: undefined,
+          theme: "colored",
+        });
+        router.reload();
+      }
+    })
+    .catch((err)=>{
+      setLoading(false)
+      toast.error(err.response.data.mesg, {
+        position: "top-right",
+        autoClose: 2000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: false,
+        draggable: true,
+        progress: undefined,
+        theme: "colored",
+      });
+     
+    })
+  };
+
+
+  const handlePageChange = (current) => {
+  
+    setCurrentPage(current);
+  };
 
   const handleChange = (e) => {
     let searched = e.target.value;
@@ -27,26 +80,25 @@ export default function Home({ data, heroData }) {
   };
 
   const handleSearch = (text) => {
-  
-    text && router.push({
-      pathname: "/article/search/result",
-      query: { q: text },
-    });
+    text &&
+      router.push({
+        pathname: "/article/search/result",
+        query: { q: text },
+      });
   };
 
   const handleEnterSearch = (e) => {
     if (e.key === "Enter") {
-      searchInput  && router.push({
-        pathname: "/article/search/result",
-        query: { q: searchInput },
-      });
+      searchInput &&
+        router.push({
+          pathname: "/article/search/result",
+          query: { q: searchInput },
+        });
     }
   };
 
- 
-
   return (
-    <main className="mt-[80px]">
+   loading ? <Loading/> : <main className="mt-[80px]">
       <div
         style={{
           height: "450px",
@@ -103,7 +155,7 @@ export default function Home({ data, heroData }) {
                           <p
                             className="text-black  py-[9px] my-[5px] text-sm cursor-pointer"
                             onClick={() => {
-                                handleSearch(ele.keyword);
+                              handleSearch(ele.keyword);
                             }}
                           >
                             {ele.keyword}
@@ -118,14 +170,17 @@ export default function Home({ data, heroData }) {
         </div>
       </div>
 
-      <AllBlogs data={data} />
+      <AllBlogs data={newData} handleDeleteBlog={handleDeleteBlog} />
+      <Pagination  currentPage={currentPage} totalPages={totalPages} handlePageChange={handlePageChange} />
+      <ToastContainer />
     </main>
   );
 }
 
 export async function getServerSideProps({ req, res, params, query }) {
-
-  const response = await axios.get(`${process.env.NEXT_PUBLIC_CLIENT_ADDRESS}/api/article/get`);
+  const response = await axios.get(
+    `${process.env.NEXT_PUBLIC_CLIENT_ADDRESS}/api/article/get`
+  );
 
   const data = response.data.articles;
   const heroData = response.data.heroData;
