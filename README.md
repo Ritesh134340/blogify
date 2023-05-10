@@ -5,7 +5,9 @@ Welcome to Blogify.today ! Blogify is a web application which provides user diff
 
   We have used Next js as a framework for this web application. For backend we have used inbuilt server of next js with mongodb database.
 
-
+# Admin Credential :
+## email: admin@blogify.com
+## password: admin@blogify
 
 ## Deployed Link :
 https://blogify.today
