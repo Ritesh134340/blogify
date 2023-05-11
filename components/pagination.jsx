@@ -52,7 +52,7 @@ const Pagination = ({ totalPages, currentPage, handlePageChange }) => {
         onClick={handlePrevious}
         disabled={currentPage === 1}
       >
-        <GrFormPrevious className="text-[25px] m-[5px] rounded-[6px]" />
+        <GrFormPrevious className="text-[24px] m-[5px] rounded-[6px]" />
       </div>
       {pages}
       <div
@@ -60,7 +60,7 @@ const Pagination = ({ totalPages, currentPage, handlePageChange }) => {
         onClick={handleNext}
         disabled={currentPage === totalPages - pageToShow}
       >
-        <GrFormNext className="text-[25px] m-[5px] rounded-[6px]" />
+        <GrFormNext className="text-[24px] m-[5px] rounded-[6px]" />
       </div>
     </div>
   );
