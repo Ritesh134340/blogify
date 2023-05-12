@@ -13,7 +13,7 @@ export default function Home({ data, heroData }) {
   const [searchInput, setSearchInput] = useState("");
   const [suggestion, setSuggestion] = useState([]);
   const router = useRouter();
-  const perPage = 5;
+  const perPage = 3;
   const [currentPage, setCurrentPage] = useState(1);
   const [loading, setLoading] = useState(false);
 
@@ -99,7 +99,7 @@ export default function Home({ data, heroData }) {
   return loading ? (
     <Loading />
   ) : (
-    <main className="mt-[80px]">
+    <main className="mt-[70px]">
       <div
         style={{
           height: "450px",

@@ -6,9 +6,12 @@ const Footer = () => {
     <footer >
       <div className="body-font text-[#89375F]  bg-white container px-5 py-5 mx-auto flex items-center sm:flex-row flex-col  lg:static">
         <a className="flex title-font font-medium items-center md:justify-start justify-center">
-          <span className="ml-3 text-xl  text-[#89375F]">Blogify</span>
+          <span className="ml-3 text-xl  text-[#89375F]">Blogify<span className="pt-[8px] text-[10px]">.today</span></span>
         </a>
-        <p className="text-sm text-slate-600   sm:ml-4 sm:pl-4  sm:py-2 sm:mt-0 mt-4">
+        <div className="hidden sm:block sm:h-[30px] sm:ml-[15px] sm:border-l-[2px]">
+
+        </div>
+        <p className="text-sm text-slate-600   sm:ml-4 sm:pl-4  sm:py-2 sm:mt-0 mt-4" >
           Copyright &copy; 2023 Blogify
         </p>
         <span className="inline-flex sm:ml-auto sm:mt-0 mt-4 justify-center sm:justify-start">

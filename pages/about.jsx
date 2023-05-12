@@ -9,7 +9,7 @@ const About = () => {
       <Head>
         <title>About | Blogify.today</title>
       </Head>
-      <h1 className="text-xl text-center md:text-2xl mt-[80px] pt-[25px] pb-[15px] lg:text-3xl font-bold bg-[rgb(243,233,233)]">
+      <h1 className="text-xl text-center md:text-2xl mt-[70px] pt-[25px] pb-[15px] lg:text-3xl font-bold bg-[rgb(243,233,233)]">
         About Blogify.today
       </h1>
 

@@ -4,20 +4,32 @@ import { GrFormPrevious, GrFormNext } from "react-icons/gr";
 const Pagination = ({ totalPages, currentPage, handlePageChange }) => {
   let pageToShow = 5;
 
-  const arr = new Array(totalPages).fill(0);
-  let firstIndex = currentPage - 1;
-  let lastIndex = firstIndex + pageToShow;
+  let start = currentPage - Math.floor(pageToShow / 2);
+  if (start < 1) {
+    start = 1;
+  }
+  let end = start + pageToShow - 1;
 
-  const pageArr = arr.map((ele, index) => {
+  if (end > totalPages) {
+    end = totalPages;
+    start = end - pageToShow + 1;
+    if (start < 1) {
+      start = 1;
+    }
+  }
+  let arr = new Array(end - start + 1).fill(start).map((ele, index) => {
+    return ele + index;
+  });
+
+  const pages = arr.map((ele, index) => {
     return (
       <div
         key={index}
-        onClick={() => handlePageChange(index + 1)}
+        onClick={() => handlePageChange(ele)}
         className="border-[1px] select-none p-[18px] w-[20px] h-[20px] flex items-center justify-center rounded-[5px] cursor-pointer"
         style={{
-          backgroundColor:
-            currentPage === index + 1 ? "rgb(137,55,95)" : "white",
-          color: currentPage === index + 1 ? "white" : "black",
+          backgroundColor: currentPage === ele ? "rgb(137,55,95)" : "white",
+          color: currentPage === ele ? "white" : "black",
         }}
       >
         {index + 1}
@@ -25,43 +37,23 @@ const Pagination = ({ totalPages, currentPage, handlePageChange }) => {
     );
   });
 
-  const handlePrevious = () => {
-    if (currentPage - pageToShow > 0) {
-      handlePageChange(currentPage - pageToShow);
-    } else {
-      handlePageChange(1);
-    }
-  };
-
-  const handleNext = () => {
-    if (currentPage + pageToShow < totalPages) {
-      handlePageChange(firstIndex + pageToShow + 1);
-    } else if (currentPage + pageToShow >= totalPages) {
-      handlePageChange(
-        currentPage - (currentPage + pageToShow - totalPages) + 1
-      );
-    }
-  };
-
-  let pages = pageArr.slice(firstIndex, lastIndex);
-
   return (
     <div className="px-[5px] m-auto text-center mt-[30px] mb-[20px] flex items-center justify-center">
-      <div
+      <button
         className="border-[1px] select-none cursor-pointer"
-        onClick={handlePrevious}
-        disabled={currentPage === 1}
+        onClick={() => handlePageChange(currentPage - 1)}
+        disabled={currentPage===1}
       >
         <GrFormPrevious className="text-[24px] m-[5px] rounded-[6px]" />
-      </div>
+      </button>
       {pages}
-      <div
+      <button
         className="border-[1px] select-none  cursor-pointer"
-        onClick={handleNext}
-        disabled={currentPage === totalPages - pageToShow}
+        onClick={() => handlePageChange(currentPage + 1)}
+        disabled={totalPages === currentPage}
       >
         <GrFormNext className="text-[24px] m-[5px] rounded-[6px]" />
-      </div>
+      </button>
     </div>
   );
 };

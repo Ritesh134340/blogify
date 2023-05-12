@@ -29,7 +29,7 @@ const Navbar = () => {
   
   return (
     <>
-      <div className="shadow-md  h-[80px] flex items-center  fixed top-0 left-0 w-[100%] bg-white z-10">
+      <div className="shadow-md  h-[70px] flex items-center  fixed top-0 left-0 w-[100%] bg-white z-10">
       <div className=" flex items-center  w-full justify-between">
         <div className="ml-[15px] sm:ml-[50px] ">
           <Link href="/">
@@ -41,7 +41,7 @@ const Navbar = () => {
         </div>
        
         <div
-          className={`flex-col  bg-[#B71375] ${showSidebar ? 'left-0' : 'left-[-300px]'}  items-center justify-between absolute top-[80px] w-[300px] h-[100vh] ease duration-500 sm:flex sm:flex-row sm:bg-white sm:flex-[1] sm:top-0 sm:w-auto  sm:ml-[70px] sm:h-auto sm:static`}
+          className={`flex-col  bg-[#B71375] ${showSidebar ? 'left-0' : 'left-[-300px]'}  items-center justify-between absolute top-[70px] w-[300px] h-[100vh] ease duration-500 sm:flex sm:flex-row sm:bg-white sm:flex-[1] sm:top-0 sm:w-auto  sm:ml-[70px] sm:h-auto sm:static`}
         >
           <ul className="flex mt-[50px] flex-col items-center  gap-[30px] text-white sm:text-black sm:flex-row  sm:mt-0 ">
             <li className="cursor-pointer text-bold text-[17px] text-lg"  onClick={() => setShowSidebar(!showSidebar)}>
