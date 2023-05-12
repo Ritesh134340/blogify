@@ -1,25 +1,31 @@
 import React from "react";
 import { GrFormPrevious, GrFormNext } from "react-icons/gr";
 
+
+const createArray=(pageToShow,currentPage,totalPages)=>{
+  let start=currentPage-Math.floor(pageToShow/2)
+  if(start<1){
+    start=1
+  }
+
+  let end=start+pageToShow-1;
+  if(end>totalPages){
+    end=totalPages
+    start=totalPages-pageToShow+1;
+    if(start<1){
+      start=1
+    }
+  }
+  return new Array(end - start + 1).fill(start).map((ele,index)=>{
+    return ele+index
+  })
+}
+
 const Pagination = ({ totalPages, currentPage, handlePageChange }) => {
   let pageToShow = 5;
 
-  let start = currentPage - Math.floor(pageToShow / 2);
-  if (start < 1) {
-    start = 1;
-  }
-  let end = start + pageToShow - 1;
 
-  if (end > totalPages) {
-    end = totalPages;
-    start = end - pageToShow + 1;
-    if (start < 1) {
-      start = 1;
-    }
-  }
-  let arr = new Array(end - start + 1).fill(start).map((ele, index) => {
-    return ele + index;
-  });
+  const arr=createArray(pageToShow,currentPage,totalPages)
 
   const pages = arr.map((ele, index) => {
     return (
