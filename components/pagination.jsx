@@ -46,19 +46,19 @@ const Pagination = ({ totalPages, currentPage, handlePageChange }) => {
   return (
     <div className="px-[5px] m-auto text-center mt-[30px] mb-[20px] flex items-center justify-center">
       <button
-        className="border-[1px] select-none cursor-pointer"
+        className="border-[1px] select-none cursor-pointer rounded-[4px]"
         onClick={() => handlePageChange(currentPage - 1)}
         disabled={currentPage===1}
       >
-        <GrFormPrevious className="text-[24px] m-[5px] rounded-[6px]" />
+        <GrFormPrevious className="text-[25px] m-[5px] rounded-[6px]" />
       </button>
       {pages}
       <button
-        className="border-[1px] select-none  cursor-pointer"
+        className="border-[1px] select-none  cursor-pointer rounded-[4px]"
         onClick={() => handlePageChange(currentPage + 1)}
         disabled={totalPages === currentPage}
       >
-        <GrFormNext className="text-[24px] m-[5px] rounded-[6px]" />
+        <GrFormNext className="text-[25px] m-[5px] rounded-[6px]" />
       </button>
     </div>
   );
