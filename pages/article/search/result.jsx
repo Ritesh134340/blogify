@@ -1,6 +1,7 @@
 import React from "react";
 import axios from "axios";
-import Image from "next/image";
+
+
 import BlogList from "@/components/blogList";
 
 const SearchResult = ({ data }) => {
