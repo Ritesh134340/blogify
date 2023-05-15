@@ -1,6 +1,6 @@
 import React from "react";
 import Head from "next/head";
-import Loading from "@/components/loading";
+
 import Image from "next/image";
 
 const About = () => {
