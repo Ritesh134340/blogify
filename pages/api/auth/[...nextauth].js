@@ -9,18 +9,16 @@ import GoogleProvider from "next-auth/providers/google";
 
 export const authOptions = {
 
+
   callbacks: {
     async signIn({ account, profile }) {
-      if (account.provider === "google" && profile.email === "riteshkumar134340@gmail.com") {
-       
-        return true; 
+      if (account.provider === "google" && profile.email !== "riteshkumar134340@gmail.com") {
+        throw new Error({mesg:"Access denied"});
       }
-       else {
-        return true; 
-      }
-     
+      return true;
     },
   },
+
   providers: [
     CredentialsProvider({
       name: "Credentials",
