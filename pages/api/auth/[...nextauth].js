@@ -13,9 +13,9 @@ export const authOptions = {
   callbacks: {
     async signIn({ account, profile }) {
       if (account.provider === "google" && profile.email !== "riteshkumar134340@gmail.com") {
-        throw new Error({mesg:"Access denied"});
+        throw new Error("Not authorized!");
       }
-      return true;
+     return true
     },
   },
 

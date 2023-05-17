@@ -1,12 +1,11 @@
 import React, { useState } from "react";
-import axios from "axios";
+
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import Loading from "@/components/loading";
 import { useRouter } from "next/router";
 import { signIn } from "next-auth/react";
-import { useSession } from "next-auth/react"
-import {FcGoogle} from "react-icons/fc"
+import { FcGoogle } from "react-icons/fc";
 
 const Login = () => {
   const [email, setEmail] = useState("");
@@ -15,28 +14,26 @@ const Login = () => {
   const router = useRouter();
 
 
-  const handleGoogleLogin= ()=>{
-    setLoading(true)
-     signIn("google",{redirect:false,callbackUrl:"/"})
-     .then((res)=>{
-     
-      setLoading(false)
-     })
-     .catch((err)=>{
-      setLoading(false)
-     })
-  }
+  const handleGoogleLogin = () => {
+    setLoading(true);
+    signIn("google", { redirect: false, callbackUrl: "/" })
+      .then((res) => {
+        setLoading(false);
+      })
+      .catch((err) => {
+        setLoading(false);
+      });
+  };
 
   const handleLogin = async (e) => {
     e.preventDefault();
-     setLoading(true)
+    setLoading(true);
     const status = await signIn("credentials", {
       redirect: false,
       email: email,
       password: password,
       callbackUrl: "/",
     });
-   
 
     if (status.ok) {
       toast.success("Login successful !", {
@@ -49,13 +46,12 @@ const Login = () => {
         progress: undefined,
         theme: "colored",
       });
-      setLoading(false)
-      setTimeout(()=>{
+      setLoading(false);
+      setTimeout(() => {
         router.push(status.url);
-      },800)
-     
+      }, 800);
     }
-    if(status.error){
+    if (status.error) {
       toast.error(status.error, {
         position: "top-right",
         autoClose: 2000,
@@ -66,7 +62,7 @@ const Login = () => {
         progress: undefined,
         theme: "colored",
       });
-      setLoading(false)
+      setLoading(false);
     }
   };
 
@@ -109,18 +105,19 @@ const Login = () => {
               Submit
             </button>
             <div className="border-b-[1px] border-b-gray-300 relative h-[20px]">
-           <div className="absolute flex items-center justify-center top-[0%] left-[45%] bg-white p-2 rounded-[50%] w-[35px] h-[35px]">or</div>
-           </div>
-          
-         
+              <div className="absolute flex items-center justify-center top-[0%] left-[45%] bg-white p-2 rounded-[50%] w-[35px] h-[35px]">
+                or
+              </div>
+            </div>
 
-          <div className='flex box-border border-[1px] py-[12px] border-black rounded-[5px] cursor-pointer items-center justify-center gap-[9px] mt-[35px] mb-[30px]' onClick={handleGoogleLogin}>
-            <FcGoogle className="text-[25px]"/><p className="text-[14px] font-semibold">Continue with Google</p>
-          </div>
+            <div
+              className="flex box-border border-[1px] py-[12px] border-black rounded-[5px] cursor-pointer items-center justify-center gap-[9px] mt-[35px] mb-[30px]"
+              onClick={handleGoogleLogin}
+            >
+              <FcGoogle className="text-[25px]" />
+              <p className="text-[14px] font-semibold">Continue with Google</p>
+            </div>
           </form>
-          
-          
-         
         </div>
       )}
       <ToastContainer />
