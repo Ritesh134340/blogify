@@ -63,6 +63,7 @@ export default function Home({ data, heroData }) {
 
   const handlePageChange = (current) => {
     setCurrentPage(current);
+    window.scrollTo(0, 440);
   };
 
   const handleChange = (e) => {
