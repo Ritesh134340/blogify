@@ -32,7 +32,7 @@ const ArticleDetails = ({ data }) => {
         <meta name="description" content={slug} />
         <link rel="canonical" href={canonicalUrl} />
       </Head>
-      <div className="mt-[90px] w-[100%] m-auto sm:w-[97%] lg:w-[78%]">
+      <div className="mt-[90px] w-[100%] m-auto sm:w-[95%] lg:w-[73%]">
         <div className="flex items-center mb-[10px] md:mb-[20px] justify-between px-[15px] sm:px-[20px] lg:px-[0px]">
           <h1 className="font-bold text-sm text-center sm:text-2xl">
             {data.title.toUpperCase()}
@@ -60,7 +60,7 @@ const ArticleDetails = ({ data }) => {
         ></Image>
         <div
           dangerouslySetInnerHTML={{ __html: data.longDes }}
-          className={`px-[12px] py-[25px] pb-[50px] lg:mt-[5px]  md:px-[30px]  rounded-b-md `}
+          className={`sm:text-xl px-[12px] py-[25px] pb-[50px] lg:mt-[5px]  md:px-[30px]  rounded-b-md `}
           style={{
             backgroundColor: length > 0 ? col.bgColor : "#F0F0F0",
             color: length > 0 ? col.text : "black",pb:"30px"
